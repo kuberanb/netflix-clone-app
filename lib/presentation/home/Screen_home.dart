@@ -142,19 +142,23 @@ class ScreenHome extends StatelessWidget {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children:const [
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const [
                                   Text(
                                     'Tv Shows',
-                                    style: TextStyle(color: kWhite,fontSize: 18),
+                                    style:
+                                        TextStyle(color: kWhite, fontSize: 18),
                                   ),
-                                   Text(
+                                  Text(
                                     'Movies',
-                                    style: TextStyle(color: kWhite,fontSize: 18),
+                                    style:
+                                        TextStyle(color: kWhite, fontSize: 18),
                                   ),
-                                   Text(
+                                  Text(
                                     'Categories',
-                                    style: TextStyle(color: kWhite,fontSize: 18),
+                                    style:
+                                        TextStyle(color: kWhite, fontSize: 18),
                                   ),
                                 ],
                               )
