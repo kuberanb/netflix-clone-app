@@ -13,10 +13,13 @@ class searchTextTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Text(
-      title,
-      style: TextStyle(
-          color: kWhite, fontWeight: FontWeight.bold, fontSize: 22),
+    return  Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Text(
+        title,
+        style: TextStyle(
+            color: kWhite, fontWeight: FontWeight.bold, fontSize: 22),
+      ),
     );
   }
 }
