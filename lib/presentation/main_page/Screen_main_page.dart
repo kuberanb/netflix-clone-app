@@ -25,10 +25,11 @@ class ScreenMainPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: backgroundColor,
         body: ValueListenableBuilder(
-            valueListenable: indexChangeNotifier,
-            builder: ((context, int value, _) {
-              return screens[indexChangeNotifier.value];
-            }),),
+          valueListenable: indexChangeNotifier,
+          builder: ((context, int value, _) {
+            return screens[indexChangeNotifier.value];
+          }),
+        ),
         bottomNavigationBar: const BottomNavigationWidget(),
       ),
     );

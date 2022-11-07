@@ -20,7 +20,9 @@ class SearchIdleWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        const  searchTextTitle(title: 'Top Searches',),
+          const searchTextTitle(
+            title: 'Top Searches',
+          ),
           SizedBox(
             height: 0.02 * screenHeight,
           ),
@@ -38,5 +40,3 @@ class SearchIdleWidget extends StatelessWidget {
     );
   }
 }
-
-

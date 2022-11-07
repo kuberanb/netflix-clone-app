@@ -92,7 +92,8 @@ class ScreenHome extends StatelessWidget {
                     ),
                   ),
                   scrollNotifier.value == true
-                      ? Container(
+                      ? AnimatedContainer(
+                        duration:const Duration(milliseconds: 1000),
                           width: double.infinity,
                           height: 0.2 * screenHeight,
                           color: kGrey.withOpacity(0.3),
