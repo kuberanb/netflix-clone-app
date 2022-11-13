@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/presentation/search/widgets/search_Text_Title.dart';
+import 'package:netflix/Views/search/widgets/search_Text_Title.dart';
 
 const imageUrl =
     'https://www.themoviedb.org/t/p/w500_and_h282_face/tSxbUnrnWlR5dQvUgqMI7sACmFD.jpg';

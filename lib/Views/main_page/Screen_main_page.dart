@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:netflix/Views/fast_laugh/Screen_fast_laugh.dart';
+import 'package:netflix/Views/home/Screen_home.dart';
+import 'package:netflix/Views/main_page/widgets/bottom_navigation_bar.dart';
 import 'package:netflix/core/Colors/colors.dart';
-import 'package:netflix/presentation/downloads/ScreenDownload.dart';
-import 'package:netflix/presentation/fast_laugh/Screen_fast_laugh.dart';
-import 'package:netflix/presentation/home/Screen_home.dart';
-import 'package:netflix/presentation/main_page/widgets/bottom_navigation_bar.dart';
-import 'package:netflix/presentation/search/Screen_Search.dart';
 
 import '../New and Hot/Screen_new_and_hot.dart';
+import '../downloads/ScreenDownload.dart';
+import '../search/Screen_Search.dart';
 
 List screens = const [
   ScreenHome(),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/presentation/main_page/Screen_main_page.dart';
-import 'package:netflix/presentation/main_page/widgets/bottom_navigation_bar.dart';
+
+import 'Views/main_page/Screen_main_page.dart';
 
 void main() {
   runApp(const MyApp());

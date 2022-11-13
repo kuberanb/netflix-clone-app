@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:netflix/Views/home/widgets/background_card.dart';
+import 'package:netflix/Views/home/widgets/home_movie_card.dart';
+import 'package:netflix/Views/search/widgets/search_Text_Title.dart';
 import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/presentation/home/widgets/background_card.dart';
-import 'package:netflix/presentation/home/widgets/home_movie_card.dart';
-import 'package:netflix/presentation/search/widgets/search_Text_Title.dart';
 import 'package:stroke_text/stroke_text.dart';
 
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);

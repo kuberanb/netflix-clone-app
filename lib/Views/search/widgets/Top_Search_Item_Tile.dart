@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:netflix/presentation/search/widgets/search_idle.dart';
+import 'package:netflix/Views/search/widgets/search_idle.dart';
 
 import '../../../core/Colors/colors.dart';
 

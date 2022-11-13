@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/presentation/search/widgets/Top_Search_Item_Tile.dart';
-import 'package:netflix/presentation/search/widgets/search_Text_Title.dart';
+import 'package:netflix/Views/search/widgets/search_Text_Title.dart';
+
+import 'Top_Search_Item_Tile.dart';
 
 const imageUrl =
     'https://www.themoviedb.org/t/p/w500_and_h282_face/tSxbUnrnWlR5dQvUgqMI7sACmFD.jpg';

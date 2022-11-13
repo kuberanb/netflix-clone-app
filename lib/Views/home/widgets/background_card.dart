@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:netflix/Views/home/Screen_home.dart';
 import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/presentation/home/Screen_home.dart';
 
 class BackGroundCard extends StatelessWidget {
   const BackGroundCard({super.key});

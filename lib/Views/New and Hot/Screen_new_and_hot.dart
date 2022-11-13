@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/presentation/home/Screen_home.dart';
+
+import '../home/Screen_home.dart';
 
 class ScreenNewandHot extends StatelessWidget {
   const ScreenNewandHot({super.key});
