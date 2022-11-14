@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
-import 'package:netflix/widgets/app_bar.dart';
+import 'package:netflix/Views/widgets/app_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 List images = [
