@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netflix/controllers/downloads_controller.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/Views/widgets/app_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../api_services/downloads_services_repo_impl.dart';
 
 List images = [
   'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/b6IRp6Pl2Fsq37r9jFhGoLtaqHm.jpg',
@@ -48,6 +52,15 @@ class Section2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
+   // Get.put(DownloadsController);
+
+    final downloadController = Get.find<DownloadsController>();
+
+  //final downloadController = Get.put(DownloadsController);
+
+    Get.put(DownloadsRepo());
+
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -83,19 +96,19 @@ class Section2 extends StatelessWidget {
                 DownloadsImageWidget(
                   size: Size(size.width * 0.4, size.width * 0.58),
                   angle: 25,
-                  images: images[0],
+                  images: downloadController.downloads![0].results[0].posterPath,
                   margin: const EdgeInsets.only(left: 125, bottom: 40,top:30),
                 ),
                 DownloadsImageWidget(
                   size: Size(size.width * 0.4, size.width * 0.58),
                   angle: -25,
-                  images: images[1],
+                  images: downloadController.downloads![1].results[1].posterPath,
                   margin: const EdgeInsets.only(right: 125, bottom: 40,top:30),
                 ),
                 DownloadsImageWidget(
                   // size: -20,
                   size: Size(size.width * 0.45, size.width * 0.65),
-                  images: images[2],
+                  images: downloadController.downloads![2].results[2].posterPath,
                   margin: const EdgeInsets.only(bottom: 0,top:20),
                 ),
               ],
@@ -226,6 +239,7 @@ class DownloadsImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //  final screenWidth = MediaQuery.of(context).size.width;
+    
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -233,7 +247,7 @@ class DownloadsImageWidget extends StatelessWidget {
       child: Transform.rotate(
         
         angle: angle * pi / 180,
-        child: Container(
+        child: Obx(()=>  Container(
           width: size.width,
           height: size.height,
           //  color: kBlack,
@@ -247,7 +261,7 @@ class DownloadsImageWidget extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ),),
       ),
     );
   }

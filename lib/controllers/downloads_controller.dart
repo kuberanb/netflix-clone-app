@@ -11,6 +11,7 @@ class DownloadsController extends GetxController {
   @override
   void onInit() {
     _downloadsRepo = Get.find<DownloadsRepo>();
+    
 
     super.onInit();
   }
