@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:netflix/api_services/downloads_services_repo.dart';
@@ -11,6 +13,8 @@ class DownloadsController extends GetxController {
   @override
   void onInit() {
     _downloadsRepo = Get.find<DownloadsRepo>();
+    downloadsfunction();
+    
     
 
     super.onInit();
@@ -18,18 +22,22 @@ class DownloadsController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  List<Downloads>? downloads;
+  RxList<Downloads>? downloads = <Downloads>[].obs;
 
   final downloadFailureorSucessOpttion = none();
 
   Future<Either<MainFailure, List<Downloads>>>? downloadsOption;
 
-  Future<void> downloadsfunction() async {
+  Future<void> downloadsfunction() async { 
     isLoading(true);
     Either<MainFailure, List<Downloads>> downloadsOption =
         await _downloadsRepo.getDownloadImages();
 
-    return downloadsOption.fold((failure) {
+////////////////////////////////////////////////        
+        log(downloadsOption.toString());
+/////////////////////////////////////////////////
+
+     downloadsOption.fold((failure) {
       isLoading(false);
       downloadFailureorSucessOpttion:
       Some(

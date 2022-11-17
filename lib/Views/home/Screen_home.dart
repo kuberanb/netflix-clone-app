@@ -120,7 +120,10 @@ class ScreenHome extends StatelessWidget {
                                     width: 80,
                                     errorBuilder:
                                         ((context, error, stackTrace) =>
-                                            Image.asset('assets/download.png')),
+                                            SizedBox(
+                                              height: 0.05*screenHeight,
+                                              width: 0.01*screenWidth,
+                                              child: Image.asset('assets/download.png'),)),
                                   ),
 
                                   Row(
