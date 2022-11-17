@@ -9,7 +9,11 @@ import 'package:netflix/core/colors/colors.dart';
 import 'Views/main_page/Screen_main_page.dart';
 import 'api_services/downloads_services_repo_impl.dart';
 
-void main() {
+Future<void> main() async{
+
+    WidgetsFlutterBinding.ensureInitialized(); // uncomment if needed for resource initialization
+  DownloadsBinding().dependencies();
+
   runApp(const MyApp());
 }
 
@@ -30,9 +34,9 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: kWhite),
         ),
       ),
-      getPages: [
-        GetPage(name: "/downloads", page:(() =>    ScreenDownload()),binding: DownloadsBinding())
-      ],
+      // getPages: [
+      //   GetPage(name: "/downloads", page:(() =>    ScreenDownload()),binding: DownloadsBinding())
+      // ],
       home: const ScreenMainPage(),
     );
     

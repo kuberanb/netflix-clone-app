@@ -93,7 +93,7 @@ class ScreenHome extends StatelessWidget {
                   ),
                   scrollNotifier.value == true
                       ? AnimatedContainer(
-                        duration:const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 1000),
                           width: double.infinity,
                           height: 0.2 * screenHeight,
                           color: kGrey.withOpacity(0.3),
@@ -118,6 +118,9 @@ class ScreenHome extends StatelessWidget {
                                     'https://cdn-images-1.medium.com/max/1200/1*ty4NvNrGg4ReETxqU2N3Og.png',
                                     height: 120,
                                     width: 80,
+                                    errorBuilder:
+                                        ((context, error, stackTrace) =>
+                                            Image.asset('assets/download.png')),
                                   ),
 
                                   Row(
