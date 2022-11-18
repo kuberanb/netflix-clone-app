@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -29,18 +30,20 @@ class DownloadsRepo implements IdownloadsRepo {
       ).get(ApiEndPoints.downloads);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-      //  final List<Downloads> downloadsList = [];
+       // final List<Downloads> downloadsList = [];
 
-    final downloadsList =    (response.data['results'] as List).map((e) 
+    final downloadsList =  (response.data['results'] as List).map((e) 
         {
           return Downloads.fromJson(e);
         }).toList();
 
         // for (var downloaditems in response.data) {
         //   downloadsList.add(
-        //     Downloads.fromJson(downloaditems as Map<String, dynamic>),
+        //     Downloads.fromJson(downloaditems ),
         //   );
         // }
+
+
         print(downloadsList);
         return Right(downloadsList);
       } else {

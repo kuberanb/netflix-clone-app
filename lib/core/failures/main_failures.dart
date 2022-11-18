@@ -1,9 +1,15 @@
 
+import 'dart:developer';
+
 class MainFailure{
 
-  static clientFailure(){}
+  static clientFailure(){
+    log('MainFailure.clientFailure occured');
+  }
 
- static serverFailure(){}
+ static serverFailure(){
+  log('MainFailure.serverFailure occured');
+ }
 
 
 }
