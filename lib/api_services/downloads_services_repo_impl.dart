@@ -34,7 +34,7 @@ class DownloadsRepo implements IdownloadsRepo {
 
     final downloadsList =  (response.data['results'] as List).map((e) 
         {
-          return Downloads.fromJson(e);
+          return Downloads.fromJson(jsonDecode(e));
         }).toList();
 
         // for (var downloaditems in response.data) {
