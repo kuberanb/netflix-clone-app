@@ -101,14 +101,14 @@ class Section2 extends StatelessWidget {
                   size: Size(size.width * 0.4, size.width * 0.58),
                   angle: 25,
                   images:
-                      '$imageAppendUrl${downloadController.downloads![0].posterPath}',
+                      '$imageAppendUrl${downloadController.downloads![11].posterPath}',
                   margin: const EdgeInsets.only(left: 125, bottom: 40, top: 30),
                 ),
                 DownloadsImageWidget(
                   size: Size(size.width * 0.4, size.width * 0.58),
                   angle: -25,
                   images:
-                      '$imageAppendUrl${downloadController.downloads![1].posterPath}',
+                      '$imageAppendUrl${downloadController.downloads![7].posterPath}',
                   margin:
                       const EdgeInsets.only(right: 125, bottom: 40, top: 30),
                 ),
@@ -116,7 +116,7 @@ class Section2 extends StatelessWidget {
                   // size: -20,
                   size: Size(size.width * 0.45, size.width * 0.65),
                   images:
-                       '$imageAppendUrl${downloadController.downloads![2].posterPath}',
+                       '$imageAppendUrl${downloadController.downloads![8].posterPath}',
                   margin: const EdgeInsets.only(bottom: 0, top: 20),
                 ),
               ],
@@ -250,13 +250,14 @@ class DownloadsImageWidget extends StatelessWidget {
 
 final downloadController = Get.find<DownloadsController>();
 
-    return (downloadController.isLoading == false)? Obx(
-      (() {
-        return  Padding(
+    return (downloadController.isLoading == false)? 
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: Transform.rotate(
             angle: angle * pi / 180,
-            child: Container(
+            child: 
+
+                Container(
               width: size.width,
               height: size.height,
               //  color: kBlack,
@@ -271,9 +272,8 @@ final downloadController = Get.find<DownloadsController>();
                 ),
               ),
             ),
+            
           ),
-        );
-      }),
-    ):const Center(child: CircularProgressIndicator(),);
+        ):const Center(child: CircularProgressIndicator(),);
   }
 }

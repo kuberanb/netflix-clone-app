@@ -22,7 +22,7 @@ class DownloadsController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  RxList<Downloads>? downloads = <Downloads>[].obs;
+  List<Downloads>? downloads = <Downloads>[].obs;
 
   final downloadFailureorSucessOpttion = none();
 
@@ -45,7 +45,7 @@ class DownloadsController extends GetxController {
       );
     }, (sucess) {
       isLoading(false);
-      downloads:
+      downloads =
       sucess;
       downloadFailureorSucessOpttion:
       Some(
