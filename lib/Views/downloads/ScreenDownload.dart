@@ -101,14 +101,14 @@ class Section2 extends StatelessWidget {
                   size: Size(size.width * 0.4, size.width * 0.58),
                   angle: 25,
                   images:
-                      '$imageAppendUrl${downloadController.downloads![0].results[0].posterPath}',
+                      '$imageAppendUrl${downloadController.downloads![0].posterPath}',
                   margin: const EdgeInsets.only(left: 125, bottom: 40, top: 30),
                 ),
                 DownloadsImageWidget(
                   size: Size(size.width * 0.4, size.width * 0.58),
                   angle: -25,
                   images:
-                      '$imageAppendUrl${downloadController.downloads![1].results[1].posterPath}',
+                      '$imageAppendUrl${downloadController.downloads![1].posterPath}',
                   margin:
                       const EdgeInsets.only(right: 125, bottom: 40, top: 30),
                 ),
@@ -116,7 +116,7 @@ class Section2 extends StatelessWidget {
                   // size: -20,
                   size: Size(size.width * 0.45, size.width * 0.65),
                   images:
-                       '$imageAppendUrl${downloadController.downloads![2].results[2].posterPath}',
+                       '$imageAppendUrl${downloadController.downloads![2].posterPath}',
                   margin: const EdgeInsets.only(bottom: 0, top: 20),
                 ),
               ],
