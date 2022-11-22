@@ -22,9 +22,10 @@ class DownloadsController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  List<Downloads>? downloads = <Downloads>[].obs;
+  List<Downloads>? downloads;
+  // = <Downloads>[].obs;
 
-  final downloadFailureorSucessOpttion = none();
+  var downloadFailureorSucessOpttion = none();
 
   Future<Either<MainFailure, List<Downloads>>>? downloadsOption;
 
@@ -39,18 +40,26 @@ class DownloadsController extends GetxController {
 
      downloadsOption.fold((failure) {
       isLoading(false);
-      downloadFailureorSucessOpttion:
+      downloadFailureorSucessOpttion =
       Some(
         Left(failure),
       );
+      print(downloads.toString());
+      print(isLoading.toString());
     }, (sucess) {
-      isLoading(false);
+      
+      
+      
       downloads =
       sucess;
-      downloadFailureorSucessOpttion:
+      downloadFailureorSucessOpttion =
       Some(
         Right(sucess),
       );
+
+      if(downloads != null){
+     isLoading(false);
+      }
     });
 
     // return downloadsOption;

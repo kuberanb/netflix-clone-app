@@ -85,44 +85,61 @@ class Section2 extends StatelessWidget {
         SizedBox(
           height: 0.02 * screenHeight,
         ),
-        SizedBox(
-          width: screenWidth,
-          height: screenWidth,
-          //  color: Colors.transparent,
-          child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: kGrey.withOpacity(0.5),
-                  radius: 0.37 * screenWidth,
-                ),
-                DownloadsImageWidget(
-                  size: Size(size.width * 0.4, size.width * 0.58),
-                  angle: 25,
-                  images:
-                      '$imageAppendUrl${downloadController.downloads![11].posterPath}',
-                  margin: const EdgeInsets.only(left: 125, bottom: 40, top: 30),
-                ),
-                DownloadsImageWidget(
-                  size: Size(size.width * 0.4, size.width * 0.58),
-                  angle: -25,
-                  images:
-                      '$imageAppendUrl${downloadController.downloads![7].posterPath}',
-                  margin:
-                      const EdgeInsets.only(right: 125, bottom: 40, top: 30),
-                ),
-                DownloadsImageWidget(
-                  // size: -20,
-                  size: Size(size.width * 0.45, size.width * 0.65),
-                  images:
-                       '$imageAppendUrl${downloadController.downloads![8].posterPath}',
-                  margin: const EdgeInsets.only(bottom: 0, top: 20),
-                ),
-              ],
-            ),
-          ),
-        ),
+        Obx(() {
+          return downloadController.isLoading.isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : downloadController.downloads != null
+                  ? SizedBox(
+                      width: screenWidth,
+                      height: screenWidth,
+                      //  color: Colors.transparent,
+                      child: Center(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: kGrey.withOpacity(0.5),
+                              radius: 0.37 * screenWidth,
+                            ),
+                            DownloadsImageWidget(
+                              size: Size(size.width * 0.4, size.width * 0.58),
+                              angle: 25,
+                              images:
+                                  '$imageAppendUrl${downloadController.downloads![11].posterPath}',
+                              margin: const EdgeInsets.only(
+                                  left: 125, bottom: 40, top: 30),
+                            ),
+                            DownloadsImageWidget(
+                              size: Size(size.width * 0.4, size.width * 0.58),
+                              angle: -25,
+                              images:
+                                  '$imageAppendUrl${downloadController.downloads![7].posterPath}',
+                              margin: const EdgeInsets.only(
+                                  right: 125, bottom: 40, top: 30),
+                            ),
+                            DownloadsImageWidget(
+                              // size: -20,
+                              size: Size(size.width * 0.45, size.width * 0.65),
+                              images:
+                                  '$imageAppendUrl${downloadController.downloads![8].posterPath}',
+                              margin: const EdgeInsets.only(bottom: 0, top: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : const Center(
+                      child: Text(
+                        'No Internet ,Turn On Internet',
+                        style: TextStyle(
+                            color: kWhite,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    );
+        }),
         SizedBox(
           height: 0.02 * screenHeight,
         ),
@@ -248,32 +265,32 @@ class DownloadsImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //  final screenWidth = MediaQuery.of(context).size.width;
 
-final downloadController = Get.find<DownloadsController>();
+    final downloadController = Get.find<DownloadsController>();
 
-    return (downloadController.isLoading == false)? 
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Transform.rotate(
-            angle: angle * pi / 180,
-            child: 
-
-                Container(
-              width: size.width,
-              height: size.height,
-              //  color: kBlack,
-              margin: margin,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(radius),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    images,
+    return (downloadController.isLoading == false)
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Transform.rotate(
+              angle: angle * pi / 180,
+              child: Container(
+                width: size.width,
+                height: size.height,
+                //  color: kBlack,
+                margin: margin,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(radius),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      images,
+                    ),
                   ),
                 ),
               ),
             ),
-            
-          ),
-        ):const Center(child: CircularProgressIndicator(),);
+          )
+        : const Center(
+            child: CircularProgressIndicator(),
+          );
   }
 }
