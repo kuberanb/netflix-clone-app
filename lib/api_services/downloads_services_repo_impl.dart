@@ -31,11 +31,13 @@ class DownloadsRepo implements IdownloadsRepo {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
        // final List<Downloads> downloadsList = [];
-
+       
+    //   print(response.data);
     final downloadsList =  (response.data['results'] as List).map((e) 
         {
           return Downloads.fromJson(e as Map<String, dynamic>);
         }).toList();
+        print(downloadsList);
 
         // for (var downloaditems in response.data) {
         //   downloadsList.add(

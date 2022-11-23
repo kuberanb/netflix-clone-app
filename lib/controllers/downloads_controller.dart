@@ -8,6 +8,7 @@ import 'package:netflix/core/failures/main_failures.dart';
 import 'package:netflix/models/downloads_model.dart';
 
 class DownloadsController extends GetxController {
+
   late IdownloadsRepo _downloadsRepo;
 
   @override
@@ -27,7 +28,7 @@ class DownloadsController extends GetxController {
 
   var downloadFailureorSucessOpttion = none();
 
-  Future<Either<MainFailure, List<Downloads>>>? downloadsOption;
+ // Future<Either<MainFailure, List<Downloads>>>? downloadsOption;
 
   Future<void> downloadsfunction() async { 
     isLoading(true);
@@ -38,28 +39,29 @@ class DownloadsController extends GetxController {
         log(downloadsOption.toString());
 /////////////////////////////////////////////////
 
-     downloadsOption.fold((failure) {
+     downloadsOption.fold((MainFailure failure) {
       isLoading(false);
-      downloadFailureorSucessOpttion =
-      Some(
-        Left(failure),
-      );
+      // downloadFailureorSucessOpttion =
+      // Some(
+      //   Left(failure),
+      // );
       print(downloads.toString());
       print(isLoading.toString());
-    }, (sucess) {
-      
-      
-      
+    }, (List<Downloads> sucess) {
+           
       downloads =
       sucess;
-      downloadFailureorSucessOpttion =
-      Some(
-        Right(sucess),
-      );
+      // downloadFailureorSucessOpttion =
+      // Some(
+      //   Right(sucess),
+      // );
 
       if(downloads != null){
      isLoading(false);
       }
+
+      // print(downloads.toString());
+      // print(isLoading.toString());
     });
 
     // return downloadsOption;

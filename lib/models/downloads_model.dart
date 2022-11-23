@@ -123,16 +123,20 @@ String downloadsToJson(Downloads data) => json.encode(data.toJson());
 class Downloads {
     Downloads({
         required this.posterPath,
+        required this.title,
     });
 
     String posterPath;
 
+    String title;
+
     factory Downloads.fromJson(Map<String, dynamic> json) => Downloads(
-        posterPath: json["poster_path"],
+        posterPath: json["poster_path"], title: json["title"],
     );
 
     Map<String, dynamic> toJson() => {
         "poster_path": posterPath,
+        "title": title,
     };
 }
 
