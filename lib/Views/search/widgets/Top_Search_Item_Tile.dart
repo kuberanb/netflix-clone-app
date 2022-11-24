@@ -6,7 +6,9 @@ import 'package:netflix/Views/search/widgets/search_idle.dart';
 import '../../../core/Colors/colors.dart';
 
 class TopSearchItemTile extends StatelessWidget {
-  const TopSearchItemTile({super.key});
+  final String title;
+  final String imageUrl;
+  const TopSearchItemTile({super.key,required this.title,required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +18,9 @@ class TopSearchItemTile extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 0.35 * screenWidth,
+          width: 0.45 * screenWidth,
           height: 0.15 * screenHeight,
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(imageUrl),
@@ -28,10 +30,10 @@ class TopSearchItemTile extends StatelessWidget {
         SizedBox(
           width: 0.02 * screenWidth,
         ),
-        const Expanded(
+         Expanded(
           child: Text(
-            'Movie Name ',
-            style: TextStyle(color: kWhite, fontSize: 18),
+            title,
+            style: const TextStyle(color: kWhite, fontSize: 18),
           ),
         ),
         // const Spacer(),

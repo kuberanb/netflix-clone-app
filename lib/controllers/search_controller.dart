@@ -19,7 +19,8 @@ class SearchController extends GetxController {
   void onInit() {
    _searchService = Get.find<SearchServiceImpl>();
    _downloadsService = Get.find<DownloadsRepo>();
-    searchfunction();
+   searchDownloadfunction();
+   searchfunction();
     
 
     // TODO: implement onInit
@@ -30,21 +31,79 @@ class SearchController extends GetxController {
 
   RxBool isError = false.obs;
 
-  dynamic search;
+  dynamic search ;
+
+  var searchtext = "spider";
+
+  //////////////////////////////////////////
+
+  RxBool isLoadingDownloads = false.obs;
+
+  RxBool isErrorDownloads = false.obs;
+
+  List<Downloads> searchdownloads = [];
 
   // List<Downloads> idleList = [];
 
   // late List<SearchResultData> searchResultList;
 
 
+  //idle list
+  Future<void> searchDownloadfunction() async{
+
+ // _downloadsService.
+
+ isLoading(true);
+    Either<MainFailure, List<Downloads>> downloadsOption =
+        await _downloadsService.getDownloadImages();
+
+  ////////////////////////////////////////////////        
+        log(downloadsOption.toString());
+  /////////////////////////////////////////////////
+
+     downloadsOption.fold((MainFailure failure) {
+      isLoadingDownloads(false);
+      // downloadFailureorSucessOpttion =
+      // Some(
+      //   Left(failure),
+      // );
+      print(searchdownloads.toString());
+      print(isLoadingDownloads.toString());
+    }, (List<Downloads> sucess) {
+           
+      searchdownloads =
+      sucess;
+      // downloadFailureorSucessOpttion =
+      // Some(
+      //   Right(sucess),
+      // );
+
+    //  if(searchdownloads != null){
+     isLoadingDownloads(false);
+     isErrorDownloads(false);
+    //  }
+
+      print(searchdownloads.toString());
+      print(isLoadingDownloads.toString());
+    });
+
+    // return downloadsOption;
+  }
+  
+  ////////////////////////////////////////////////////////////////////////////////////
+  
+
+  // search list 
   Future<void> searchfunction() async {
     isLoading(true);
 
    // _downloadsService.getDownloadImages();
 
+   // final result = await _downloadsService.getDownloadImages();
+
     Either<MainFailure, Search> searchOption;
 
-    searchOption = await _searchService.searchMovies(movieQuery: 'sp');
+    searchOption = await _searchService.searchMovies(movieQuery: searchtext);
 
     ///////////////////////////////////////////
     log(searchOption.toString());
@@ -62,4 +121,5 @@ class SearchController extends GetxController {
       },
     );
   }
+
 }
