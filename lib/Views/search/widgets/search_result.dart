@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netflix/Views/search/widgets/search_Text_Title.dart';
+
+import '../../../controllers/search_controller.dart';
 
 const imageUrl =
     'https://www.themoviedb.org/t/p/w500_and_h282_face/tSxbUnrnWlR5dQvUgqMI7sACmFD.jpg';
@@ -25,11 +28,11 @@ class SearchResultWidget extends StatelessWidget {
             child: GridView.count(
               shrinkWrap: true,
               crossAxisCount: 3,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 6,
               childAspectRatio: 1.2/1.4,
               children: List.generate(20, (index) {
-                return const MainCard();
+                return  MainCard(index: index,);
               }),
             ),
           ),
@@ -40,15 +43,17 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  int index;
+   MainCard({super.key,required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final _searchController = Get.find<SearchController>();
     return Container(
       decoration:  BoxDecoration(
-        image:const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(imageUrl),
+          image: NetworkImage(_searchController.search[index].posterPath??imageUrl),
         ),
         borderRadius: BorderRadius.circular(7),
       ),

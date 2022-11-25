@@ -20,7 +20,7 @@ class SearchController extends GetxController {
    _searchService = Get.find<SearchServiceImpl>();
    _downloadsService = Get.find<DownloadsRepo>();
    searchDownloadfunction();
-   searchfunction();
+   //searchfunction();
     
 
     // TODO: implement onInit
@@ -31,9 +31,9 @@ class SearchController extends GetxController {
 
   RxBool isError = false.obs;
 
-  dynamic search ;
+  List<SearchResultData> search = [] ;
 
-  var searchtext = "spider";
+  var searchtext = "";
 
   //////////////////////////////////////////
 
@@ -117,7 +117,7 @@ class SearchController extends GetxController {
       (Search searchResult) {
         isError(false);
         isLoading(false);
-        search = searchResult;
+        search = searchResult.results;
       },
     );
   }

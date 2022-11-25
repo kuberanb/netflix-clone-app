@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netflix/Views/search/widgets/search_idle.dart';
 import 'package:netflix/Views/search/widgets/search_result.dart';
+import 'package:netflix/controllers/downloads_controller.dart';
 import 'package:netflix/controllers/search_controller.dart';
 import 'package:netflix/core/colors/colors.dart';
 
@@ -12,7 +14,11 @@ class ScreenSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    final _searchContoller = Get.find<SearchController>();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      (_searchContoller.searchtext == null ||_searchContoller.searchtext.isEmpty  )?const SizedBox():
+      _searchContoller.searchfunction();
+    });
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Column(
@@ -42,9 +48,12 @@ class ScreenSearch extends StatelessWidget {
           //   height: 0.02 * screenHeight,
           // ),
 
-          const Expanded(
-           child:  SearchIdleWidget(),),
-        // const Expanded(child: SearchResultWidget(),),
+          Expanded(
+            child: (_searchContoller.search.isEmpty)
+                ? const SearchIdleWidget()
+                : const SearchResultWidget(),
+          ),
+          // const Expanded(child: SearchResultWidget(),),
         ],
       ),
     );

@@ -20,7 +20,7 @@ class Search {
 
   factory Search.fromJson(Map<String, dynamic> json) => Search(
         results:
-            List<SearchResultData>.from(json["results"].map((x) => SearchResultData.fromJson(x))),
+            List<SearchResultData>.from(json["results"].map((x) => SearchResultData.fromJson(x as Map<String , dynamic>))),
       );
 
   Map<String, dynamic> toJson() => {
