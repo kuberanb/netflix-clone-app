@@ -7,17 +7,22 @@ import 'package:netflix/Views/search/widgets/search_idle.dart';
 import 'package:netflix/Views/search/widgets/search_result.dart';
 import 'package:netflix/controllers/downloads_controller.dart';
 import 'package:netflix/controllers/search_controller.dart';
+import 'package:netflix/core/Debounce/debounce.dart';
 import 'package:netflix/core/colors/colors.dart';
 
 class ScreenSearch extends StatelessWidget {
-  const ScreenSearch({super.key});
+   ScreenSearch({super.key});
+
+  final _debouncer = Debouncer(milliseconds: 1*1000);
 
   @override
   Widget build(BuildContext context) {
     final _searchContoller = Get.find<SearchController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      (_searchContoller.searchtext == null ||_searchContoller.searchtext.isEmpty  )?const SizedBox():
-      _searchContoller.searchfunction();
+      
+     // (_searchContoller.searchtext == null ||_searchContoller.searchtext.isEmpty  )?const SizedBox():
+    //  _searchContoller.searchfunction();
+
     });
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -37,6 +42,20 @@ class ScreenSearch extends StatelessWidget {
                 CupertinoIcons.xmark_circle_fill,
                 color: kGrey,
               ),
+              onChanged: (value) {
+                if(value.isEmpty){
+                 //  _searchContoller.searchtext.close();
+                  return;
+                  
+                }               
+                _debouncer.run(() {
+
+                   _searchContoller.searchtext = RxString(value);
+                   _searchContoller.searchfunction();
+                    _searchContoller.searchtext.close();
+                    
+                });
+              },
               //  backgroundColor: kGrey,
               decoration: BoxDecoration(
                 color: kGrey.withOpacity(0.5),
@@ -47,12 +66,23 @@ class ScreenSearch extends StatelessWidget {
           // SizedBox(
           //   height: 0.02 * screenHeight,
           // ),
-
-          Expanded(
+          
+          GetBuilder(
+            init: _searchContoller,
+            builder: ((_searchContoller) {
+                 
+            return Expanded(
             child: (_searchContoller.search.isEmpty)
                 ? const SearchIdleWidget()
                 : const SearchResultWidget(),
-          ),
+          );
+          
+          }))
+
+          // Obx((){
+            
+          // }),
+          
           // const Expanded(child: SearchResultWidget(),),
         ],
       ),

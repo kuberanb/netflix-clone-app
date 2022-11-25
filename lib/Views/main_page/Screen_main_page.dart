@@ -8,12 +8,12 @@ import '../New and Hot/Screen_new_and_hot.dart';
 import '../downloads/ScreenDownload.dart';
 import '../search/Screen_Search.dart';
 
-List screens = const [
-  ScreenHome(),
-  ScreenNewandHot(),
-  ScreenFastLaugh(),
+List screens =  [
+ const ScreenHome(),
+ const ScreenNewandHot(),
+ const ScreenFastLaugh(),
   ScreenSearch(),
-  ScreenDownload(),
+ const ScreenDownload(),
 ];
 
 class ScreenMainPage extends StatelessWidget {

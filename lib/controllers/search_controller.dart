@@ -31,9 +31,9 @@ class SearchController extends GetxController {
 
   RxBool isError = false.obs;
 
-  List<SearchResultData> search = [] ;
+  RxList<SearchResultData> search = <SearchResultData>[].obs;
 
-  var searchtext = "";
+  var searchtext = "".obs;
 
   //////////////////////////////////////////
 
@@ -41,7 +41,7 @@ class SearchController extends GetxController {
 
   RxBool isErrorDownloads = false.obs;
 
-  List<Downloads> searchdownloads = [];
+  RxList<Downloads> searchdownloads = <Downloads>[].obs;
 
   // List<Downloads> idleList = [];
 
@@ -72,7 +72,7 @@ class SearchController extends GetxController {
     }, (List<Downloads> sucess) {
            
       searchdownloads =
-      sucess;
+      RxList(sucess);
       // downloadFailureorSucessOpttion =
       // Some(
       //   Right(sucess),
@@ -103,7 +103,7 @@ class SearchController extends GetxController {
 
     Either<MainFailure, Search> searchOption;
 
-    searchOption = await _searchService.searchMovies(movieQuery: searchtext);
+    searchOption = await _searchService.searchMovies(movieQuery: searchtext.toString());
 
     ///////////////////////////////////////////
     log(searchOption.toString());
@@ -113,11 +113,13 @@ class SearchController extends GetxController {
       (MainFailure failure) {
         isLoading(false);
         isError(true);
+        update();
       },
       (Search searchResult) {
         isError(false);
         isLoading(false);
-        search = searchResult.results;
+        search = RxList(searchResult.results);
+        update();
       },
     );
   }
