@@ -53,7 +53,7 @@ class SearchController extends GetxController {
 
  // _downloadsService.
 
- isLoading(true);
+ isLoadingDownloads(true);
     Either<MainFailure, List<Downloads>> downloadsOption =
         await _downloadsService.getDownloadImages();
 

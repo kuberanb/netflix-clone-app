@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:netflix/controllers/fast_laugh_controller.dart';
 import 'package:netflix/core/colors/colors.dart';
+import 'package:netflix/core/constants.dart';
 
 class VideoListItem extends StatelessWidget {
   const VideoListItem({super.key, required this.index});
@@ -10,6 +13,8 @@ class VideoListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+      final _fastLaughController = Get.find<FastLaughController>();
     return Stack(
       children: [
         Container(
@@ -43,19 +48,23 @@ class VideoListItem extends StatelessWidget {
 
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
+                children:  [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal:10.0),
+                    padding:const EdgeInsets.symmetric(horizontal:10.0),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/yB8BMtvzHlMmRT1WmTQnGv1bcOK.jpg'),
+                        //  'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/yB8BMtvzHlMmRT1WmTQnGv1bcOK.jpg'
+                        
+                        '$imageAppendUrl${_fastLaughController.fastLaughdownloads[index].posterPath}'
+                          ),
                       radius: 25,
                     ),
                   ),
-                  VideoActionWidget(icon: Icons.emoji_emotions, title: 'LOL'),
-                  VideoActionWidget(icon: Icons.add, title: 'My List'),
-                  VideoActionWidget(icon: Icons.share, title: 'Share'),
-                  VideoActionWidget(icon: Icons.play_arrow, title: 'Play'),
+                  
+                const  VideoActionWidget(icon: Icons.emoji_emotions, title: 'LOL'),
+                const  VideoActionWidget(icon: Icons.add, title: 'My List'),
+                const  VideoActionWidget(icon: Icons.share, title: 'Share'),
+                const  VideoActionWidget(icon: Icons.play_arrow, title: 'Play'),
                 ],
               ),
             ],
