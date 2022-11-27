@@ -18,14 +18,30 @@ late IdownloadsRepo _downloadsService;
     // TODO: implement onInit
 
     _downloadsService = Get.find<DownloadsRepo>();
+     fastLaughDownloadfunction();
     super.onInit();
   }
 
- RxBool isLoadingDownloads = false.obs;
+  List<int> likedVideosIds = [];
+
+ RxBool isLoadingDownloads = true.obs;
 
   RxBool isErrorDownloads = false.obs;
 
   RxList<Downloads> fastLaughdownloads = <Downloads>[].obs;
+
+
+  void addLikedVideos({required int id}){
+   
+   likedVideosIds.add(id);
+   update();
+  }
+
+  void removeLikedVideos({required int id}){
+    
+    likedVideosIds.remove(id);
+     update();
+  }
 
 
    Future<void> fastLaughDownloadfunction() async{
@@ -42,10 +58,12 @@ late IdownloadsRepo _downloadsService;
 
      downloadsOption.fold((MainFailure failure) {
       isLoadingDownloads(false);
+      isErrorDownloads(false);
       // downloadFailureorSucessOpttion =
       // Some(
       //   Left(failure),
       // );
+      update();
       print(fastLaughdownloads.toString());
       print(isLoadingDownloads.toString());
     }, (List<Downloads> sucess) {
@@ -60,6 +78,7 @@ late IdownloadsRepo _downloadsService;
     //  if(searchdownloads != null){
      isLoadingDownloads(false);
      isErrorDownloads(false);
+     update();
     //  }
 
       print(fastLaughdownloads.toString());

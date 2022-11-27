@@ -13,17 +13,37 @@ class ScreenFastLaugh extends StatelessWidget {
   Widget build(BuildContext context) {
     final _fastLaughController = Get.find<FastLaughController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _fastLaughController.fastLaughDownloadfunction();
+      //  _fastLaughController.fastLaughDownloadfunction();
     });
-   
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: PageView(
           scrollDirection: Axis.vertical,
-          children: List.generate(_fastLaughController.fastLaughdownloads.length, (index) {
-            return VideoListItem(
-              index: index,
+          children: List.generate(
+              _fastLaughController.fastLaughdownloads.length, (index) {
+            return GetBuilder(
+              init: _fastLaughController,
+              builder: ((_fastLaughController) {
+                return _fastLaughController.isErrorDownloads.isTrue
+                    ? const Center(
+                        child: Text(
+                          'Error Occured',
+                          style: TextStyle(
+                              color: kWhite,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    : _fastLaughController.isLoadingDownloads.isTrue
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : VideoListItem(
+                            index: index,
+                          );
+              }),
             );
           }),
         ),
