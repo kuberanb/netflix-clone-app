@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/Views/downloads/ScreenDownload.dart';
 import 'package:netflix/controllers/bindings/downloads_binding.dart';
 import 'package:netflix/controllers/bindings/fast_laugh_binding.dart';
+import 'package:netflix/controllers/bindings/new_and_hot_binding.dart';
 import 'package:netflix/controllers/bindings/search_binding.dart';
 import 'package:netflix/core/colors/colors.dart';
 
@@ -17,6 +18,7 @@ Future<void> main() async {
   DownloadsBinding().dependencies();
   SearchBinding().dependencies();
   FastLaughBinding().dependencies();
+  NewAndHotBindings().dependencies;
 
   runApp(const MyApp());
 }

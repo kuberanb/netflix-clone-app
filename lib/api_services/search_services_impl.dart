@@ -20,7 +20,7 @@ class SearchServiceImpl implements SearchService {
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         // final List<Downloads> downloadsList = [];
-
+      
         final result = Search.fromJson(response.data);
 
         // print(downloadsList);
