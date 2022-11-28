@@ -235,9 +235,9 @@ class comingSoonListItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Text(
-                    'Coming on OCT 10',
-                    style: TextStyle(
+                   Text(
+                    'Coming on ${_hotAndNewController.comingSoonList[index].releaseDate??'OCT 11'}',
+                    style:const TextStyle(
                         color: kWhite,
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
@@ -246,14 +246,14 @@ class comingSoonListItem extends StatelessWidget {
                     height: 0.01 * screenHeight,
                   ),
                   Text(
-                    _hotAndNewController.comingSoonList[index].title??'No Title',
+                    _hotAndNewController.comingSoonList[index].title??'',
                     style: const TextStyle(color: kWhite, fontSize: 16),
                   ),
                   SizedBox(
                     height: 0.01 * screenHeight,
                   ),
                   Text(
-                    '''${_hotAndNewController.comingSoonList[index].overview}''',
+                    '''${_hotAndNewController.comingSoonList[index].overview}'''??'Dummy Overview',
                     style: const TextStyle(
                       color: kGrey,
                       fontSize: 12,
@@ -343,23 +343,16 @@ class EveryOneWatchingPageListItem extends StatelessWidget {
         SizedBox(
           height: 0.02 * screenHeight,
         ),
-        const Text(
-          'House of the Dragon',
-          style: TextStyle(
+         Text(
+          _hotAndNewController.everOneIsWatchingList[index].title.toString(),
+          style: const TextStyle(
               color: kWhite, fontWeight: FontWeight.bold, fontSize: 22),
         ),
         SizedBox(
           height: 0.01 * screenHeight,
         ),
-        const Text(
-          '''The Targyan Dynasty is at the absolute apex of its 
-power, with more than 15 dragons under their yoke.
-Most empires crumble from such heights. In the case 
-of the Taryans their slow fall begins when King 
-Vicerys breaks with a century of tradition by naming his daughter Rhaneeyra heir to the Iron Throne But When
-Viserys later fathers a son, the court is shocked When   
-Rhaneyra retains her status as his heir, and seeds of 
-division sow friction acress realm ''',
+         Text(
+         _hotAndNewController.everOneIsWatchingList[index].overview.toString() ,
           style: TextStyle(color: kGrey, fontSize: 14),
         ),
         SizedBox(
@@ -370,11 +363,11 @@ division sow friction acress realm ''',
             Container(
               width: double.infinity,
               height: 0.3 * screenHeight,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      'https://www.themoviedb.org/t/p/w1066_and_h600_bestv2/yYrvN5WFeGYjJnRzhY0QXuo4Isw.jpg'),
+                      '$imageAppendUrl${_hotAndNewController.everOneIsWatchingList[index].posterPath}'),
                 ),
               ),
             ),
