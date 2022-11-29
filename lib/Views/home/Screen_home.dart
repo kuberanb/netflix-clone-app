@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:netflix/Views/home/widgets/background_card.dart';
 import 'package:netflix/Views/home/widgets/home_movie_card.dart';
 import 'package:netflix/Views/search/widgets/search_Text_Title.dart';
+import 'package:netflix/controllers/home_page_controller.dart';
 import 'package:netflix/core/colors/colors.dart';
+import 'package:netflix/core/constants.dart';
 import 'package:stroke_text/stroke_text.dart';
 
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
@@ -16,6 +19,7 @@ class ScreenHome extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final textscale = MediaQuery.of(context).textScaleFactor;
+    final homeController = Get.put(HomePageController());
 
     return SafeArea(
       child: Scaffold(
@@ -37,59 +41,120 @@ class ScreenHome extends StatelessWidget {
               },
               child: Stack(
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const BackGroundCard(),
+                  GetBuilder(
+                    init: homeController,
+                    builder: ((homeController) {
+                      if (homeController.isLoading == true) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        );
+                      } else if (homeController.isError == true) {
+                        return const Center(
+                          child: Text(
+                            'Error While getting Data',
+                            style: TextStyle(color: kWhite, fontSize: 22),
+                          ),
+                        );
+                      }
 
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
-                        const searchTextTitle(
-                            title: 'Released in the Past Year'),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
+                      final _releaseYear = homeController.pastYearMovieList.map(
+                        (e) {
+                          return '$imageAppendUrl${e.posterPath}';
+                        },
+                      ).toList();
 
-                        const homeListTile(),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
-                        const searchTextTitle(title: 'Trending Now '),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
-                        const homeListTile(),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
+                      final _trending = homeController.trendingMovieList.map(
+                        (e) {
+                          return '$imageAppendUrl${e.posterPath}';
+                        },
+                      ).toList();
 
-                        const searchTextTitle(
-                            title: 'Top 10 Tv Shows in India Today'),
+                      final _tenseDramas =
+                          homeController.tenseDramasMovieList.map(
+                        (e) {
+                          return '$imageAppendUrl${e.posterPath}';
+                        },
+                      ).toList();
 
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
-                        /////////////////////////
-                        const HomeMovieCardWithNumberListTile(),
+                      final _southIndianMovies =
+                          homeController.southIndianMovieList.map(
+                        (e) {
+                          return '$imageAppendUrl${e.posterPath}';
+                        },
+                      ).toList();
 
-                        const searchTextTitle(title: 'Tense Dramas'),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
+                      final _trendingTv = homeController.trendingTvList.map(
+                        (e) {
+                          return '$imageAppendUrl${e.posterPath}';
+                        },
+                      ).toList();
+
+                      return SingleChildScrollView(
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const BackGroundCard(),
+
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            const searchTextTitle(
+                                title: 'Released in the Past Year'),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+
+                            homeListTile(
+                              posterPathList: _releaseYear,
+                            ),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            const searchTextTitle(title: 'Trending Now '),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            homeListTile(
+                              posterPathList: _trending,
+                            ),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+
+                            const searchTextTitle(
+                                title: 'Top 10 Tv Shows in India Today'),
+
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            /////////////////////////
+                            HomeMovieCardWithNumberListTile(imageList: _trendingTv ,),
+
+                            const searchTextTitle(title: 'Tense Dramas'),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            homeListTile(
+                              posterPathList: _tenseDramas,
+                            ),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            const searchTextTitle(
+                                title: 'South Indian Cinemas'),
+                            SizedBox(
+                              height: 0.02 * screenHeight,
+                            ),
+                            homeListTile(
+                              posterPathList: _southIndianMovies,
+                            ),
+                          ],
                         ),
-                        const homeListTile(),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
-                        const searchTextTitle(title: 'South Indian Cinemas'),
-                        SizedBox(
-                          height: 0.02 * screenHeight,
-                        ),
-                        const homeListTile(),
-                      ],
-                    ),
+                      );
+                    }),
                   ),
                   scrollNotifier.value == true
                       ? AnimatedContainer(
@@ -121,9 +186,11 @@ class ScreenHome extends StatelessWidget {
                                     errorBuilder:
                                         ((context, error, stackTrace) =>
                                             SizedBox(
-                                              height: 0.05*screenHeight,
-                                              width: 0.01*screenWidth,
-                                              child: Image.asset('assets/download.png'),)),
+                                              height: 0.05 * screenHeight,
+                                              width: 0.01 * screenWidth,
+                                              child: Image.asset(
+                                                  'assets/download.png'),
+                                            )),
                                   ),
 
                                   Row(
@@ -184,19 +251,22 @@ class ScreenHome extends StatelessWidget {
 }
 
 class homeListTile extends StatelessWidget {
-  const homeListTile({
+  homeListTile({
     Key? key,
     //  required this.screenHeight,
     //  required this.screenWidth,
+    required this.posterPathList,
   }) : super(key: key);
 
   // final double screenHeight;
   // final double screenWidth;
+  List<String> posterPathList;
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final homeController = Get.find<HomePageController>();
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -205,12 +275,15 @@ class homeListTile extends StatelessWidget {
         height: 0.25 * screenHeight,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: homeController.pastYearMovieList.length,
           separatorBuilder: ((context, index) => SizedBox(
                 width: 0.04 * screenWidth,
               )),
           itemBuilder: ((context, index) {
-            return const HomeMovieCard();
+            return HomeMovieCard(
+              index: index,
+              posterPath: posterPathList,
+            );
           }),
         ),
       ),
@@ -219,9 +292,12 @@ class homeListTile extends StatelessWidget {
 }
 
 class HomeMovieCardWithNumber extends StatelessWidget {
-  const HomeMovieCardWithNumber({super.key, required this.index});
+   HomeMovieCardWithNumber({super.key, required this.index,required this.imageList});
 
   final int index;
+
+
+  List<String> imageList;
 
   @override
   Widget build(BuildContext context) {
@@ -240,10 +316,10 @@ class HomeMovieCardWithNumber extends StatelessWidget {
               // color: kGrey,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
+                image:  DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/zHQy4h36WwuCetKS7C3wcT1hkgA.jpg'),
+                   '${imageList[index]}' ),
                 ),
               ),
             ),
@@ -264,8 +340,11 @@ class HomeMovieCardWithNumber extends StatelessWidget {
 }
 
 class HomeMovieCardWithNumberListTile extends StatelessWidget {
-  const HomeMovieCardWithNumberListTile({super.key});
 
+   HomeMovieCardWithNumberListTile({super.key,required this.imageList});
+
+
+  List<String> imageList;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -284,7 +363,7 @@ class HomeMovieCardWithNumberListTile extends StatelessWidget {
           //     )),
           itemBuilder: ((context, index) {
             return HomeMovieCardWithNumber(
-              index: index,
+              index: index, imageList: imageList,
             );
           }),
         ),

@@ -105,49 +105,54 @@ class CommingSoonPage extends StatelessWidget {
     final textscale = MediaQuery.of(context).textScaleFactor;
     final _hotAndNewController = Get.find<NewAndHotController>();
 
-    return GetBuilder(
-      init: _hotAndNewController,
-      builder: ((_hotAndNewController) {
-        if (_hotAndNewController.isLoadingnewAndHotTv) {
-          return const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
-          );
-        } else if (_hotAndNewController.isErrornewAndHotTv) {
-          return const Center(
-            child: Text(
-              'Error Occured showing Coming Soon Page ',
-              style: TextStyle(
-                  color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          );
-        } else if (_hotAndNewController.comingSoonList.isEmpty) {
-          return const Center(
-            child: Text(
-              'Coming Soon List is Empty',
-              style: TextStyle(
-                  color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          );
-        } else {
-          return ListView.separated(
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 0,
-            ),
-            itemCount: _hotAndNewController.comingSoonList.length,
-            itemBuilder: ((context, index) {
-              if (_hotAndNewController.comingSoonList[index].id == null) {
-                return const SizedBox();
-              }
-
-              return comingSoonListItem(
-                index: index,
-              );
-            }),
-          );
-        }
-      }),
+    return RefreshIndicator(
+      onRefresh: ((() async{
+        _hotAndNewController.newAndHotMovieFunction();
+      })),
+      child: GetBuilder(
+        init: _hotAndNewController,
+        builder: ((_hotAndNewController) {
+          if (_hotAndNewController.isLoadingnewAndHotTv) {
+            return const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            );
+          } else if (_hotAndNewController.isErrornewAndHotTv) {
+            return const Center(
+              child: Text(
+                'Error Occured showing Coming Soon Page ',
+                style: TextStyle(
+                    color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            );
+          } else if (_hotAndNewController.comingSoonList.isEmpty) {
+            return const Center(
+              child: Text(
+                'Coming Soon List is Empty',
+                style: TextStyle(
+                    color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            );
+          } else {
+            return ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 0,
+              ),
+              itemCount: _hotAndNewController.comingSoonList.length,
+              itemBuilder: ((context, index) {
+                if (_hotAndNewController.comingSoonList[index].id == null) {
+                  return const SizedBox();
+                }
+    
+                return comingSoonListItem(
+                  index: index,
+                );
+              }),
+            );
+          }
+        }),
+      ),
     );
   }
 }
@@ -217,7 +222,7 @@ class comingSoonListItem extends StatelessWidget {
                     children: [
                       Text(
                         _hotAndNewController
-                            .comingSoonList[index].originalTitle??'No Title',
+                            .comingSoonList[index].title??'No Title ',
                         style: const TextStyle(
                             color: kWhite,
                             fontSize: 25,
@@ -236,7 +241,7 @@ class comingSoonListItem extends StatelessWidget {
                     ],
                   ),
                    Text(
-                    'Coming on ${_hotAndNewController.comingSoonList[index].releaseDate??'OCT 11'}',
+                    'Coming on ${_hotAndNewController.comingSoonList[index].releaseDate??'OCT 10 '}',
                     style:const TextStyle(
                         color: kWhite,
                         fontWeight: FontWeight.bold,
@@ -246,17 +251,19 @@ class comingSoonListItem extends StatelessWidget {
                     height: 0.01 * screenHeight,
                   ),
                   Text(
-                    _hotAndNewController.comingSoonList[index].title??'',
+                    _hotAndNewController.comingSoonList[index].originalTitle??'',
                     style: const TextStyle(color: kWhite, fontSize: 16),
                   ),
                   SizedBox(
                     height: 0.01 * screenHeight,
                   ),
                   Text(
-                    '''${_hotAndNewController.comingSoonList[index].overview}'''??'Dummy Overview',
+                    '''${_hotAndNewController.comingSoonList[index].overview}''',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 6,
                     style: const TextStyle(
                       color: kGrey,
-                      fontSize: 12,
+                      fontSize: 15,
                     ),
                   )
                 ],
@@ -278,49 +285,54 @@ class EveryoneWatchingPage extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final _hotAndNewController = Get.find<NewAndHotController>();
 
-    return GetBuilder(
-      init: _hotAndNewController,
-      builder: ((_hotAndNewController) {
-        if (_hotAndNewController.isLoadingnewAndHotMovie) {
-          return const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
-          );
-        } else if (_hotAndNewController.isErrornewAndHotMovie) {
-          return const Center(
-            child: Text(
-              'Error Occured showing Coming Soon Page ',
-              style: TextStyle(
-                  color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          );
-        } else if (_hotAndNewController.everOneIsWatchingList.isEmpty) {
-          return const Center(
-            child: Text(
-              'Coming Soon List is Empty',
-              style: TextStyle(
-                  color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          );
-        } else {
-          return ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(
-              height: 0.01 * screenHeight,
-            ),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              if (_hotAndNewController.everOneIsWatchingList[index].id ==
-                  null) {
-                return const SizedBox();
-              }
-
-              return  EveryOneWatchingPageListItem(index: index,);
-            },
-            //child:
-          );
-        }
-      }),
+    return RefreshIndicator(
+      onRefresh: ((() async{
+        _hotAndNewController.newAndHotTvFunction();
+      })),
+      child: GetBuilder(
+        init: _hotAndNewController,
+        builder: ((_hotAndNewController) {
+          if (_hotAndNewController.isLoadingnewAndHotMovie) {
+            return const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            );
+          } else if (_hotAndNewController.isErrornewAndHotMovie) {
+            return const Center(
+              child: Text(
+                'Error Occured showing Coming Soon Page ',
+                style: TextStyle(
+                    color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            );
+          } else if (_hotAndNewController.everOneIsWatchingList.isEmpty) {
+            return const Center(
+              child: Text(
+                'Coming Soon List is Empty',
+                style: TextStyle(
+                    color: kWhite, fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            );
+          } else {
+            return ListView.separated(
+              separatorBuilder: (context, index) => SizedBox(
+                height: 0.01 * screenHeight,
+              ),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                if (_hotAndNewController.everOneIsWatchingList[index].id ==
+                    null) {
+                  return const SizedBox();
+                }
+    
+                return  EveryOneWatchingPageListItem(index: index,);
+              },
+              //child:
+            );
+          }
+        }),
+      ),
     );
   }
 }
